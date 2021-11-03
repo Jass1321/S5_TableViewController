@@ -55,6 +55,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             DispatchQueue.main.async {
                 // aca voy a invoar a la funcion que se encargue de imprimir la informacion
                 self?.printData()
+                //se invoca al meto reliadData
+                self?.TableView.reloadData()
             }
         }
     }
@@ -65,15 +67,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // cantidad de datos
-        return names.count
+        return viewModelHistoryPost.dataArrayHistoryPosts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = TableView.dequeueReusableCell(withIdentifier: "Cell")!
         
-        cell.textLabel?.text = names[indexPath.row]
-        cell.detailTextLabel?.text = lastNames[indexPath.row]
+        let object = viewModelHistoryPost.dataArrayHistoryPosts
 
+        cell.textLabel?.text = object[indexPath.row].title
+        cell.detailTextLabel?.text = object[indexPath.row].body
+        
         return cell
         
     }
